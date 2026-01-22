@@ -307,7 +307,7 @@ function ProjectionDetails({ data, yearsUntilUni }) {
           <table className="data-table">
             <thead>
               <tr>
-                <th>Academic Year</th>
+                <th className="text-left">Academic Year</th>
                 <th className="text-right">Tuition Fee</th>
                 <th className="text-right">Living Costs</th>
                 <th className="text-right">Total</th>
@@ -316,14 +316,14 @@ function ProjectionDetails({ data, yearsUntilUni }) {
             <tbody>
               {data.costs.yearlyBreakdown.map((year) => (
                 <tr key={year.year}>
-                  <td className="font-medium">Year {year.year} ({year.academicYear})</td>
+                  <td className="text-left font-medium">Year {year.year} ({year.academicYear})</td>
                   <td className="text-right">{formatCurrency(year.tuitionFee)}</td>
                   <td className="text-right">{formatCurrency(year.livingCost)}</td>
                   <td className="text-right font-semibold">{formatCurrency(year.totalYearlyCost)}</td>
                 </tr>
               ))}
-              <tr className="bg-white/5">
-                <td className="font-bold">Total</td>
+              <tr className="total-row">
+                <td className="text-left font-bold">Total</td>
                 <td className="text-right font-bold">{formatCurrency(data.costs.totalTuitionFees)}</td>
                 <td className="text-right font-bold">{formatCurrency(data.costs.totalLivingCosts)}</td>
                 <td className="text-right font-bold text-gradient">{formatCurrency(data.costs.grandTotal)}</td>
@@ -346,7 +346,7 @@ function ProjectionDetails({ data, yearsUntilUni }) {
           <table className="data-table">
             <thead>
               <tr>
-                <th>Annual Return</th>
+                <th className="text-center">Annual Return</th>
                 <th className="text-right">Monthly Saving</th>
                 <th className="text-right">Total Contributions</th>
                 <th className="text-right">Investment Growth</th>
@@ -355,7 +355,7 @@ function ProjectionDetails({ data, yearsUntilUni }) {
             <tbody>
               {data.monthlySavings.map((scenario) => (
                 <tr key={scenario.annualRate}>
-                  <td className="font-medium">{scenario.annualRatePercent}%</td>
+                  <td className="text-center font-medium">{scenario.annualRatePercent}%</td>
                   <td className="text-right text-emerald-400 font-semibold">
                     {formatCurrency(scenario.monthlySavings, true)}
                   </td>
@@ -381,21 +381,21 @@ function ProjectionDetails({ data, yearsUntilUni }) {
           <table className="data-table">
             <thead>
               <tr>
-                <th>Annual Return</th>
+                <th className="text-center">Annual Return</th>
                 <th className="text-right">Lump Sum Required</th>
                 <th className="text-right">Projected Growth</th>
-                <th className="text-right">Growth %</th>
+                <th className="text-center">Growth %</th>
               </tr>
             </thead>
             <tbody>
               {data.lumpSum.map((scenario) => (
                 <tr key={scenario.annualRate}>
-                  <td className="font-medium">{scenario.annualRatePercent}%</td>
+                  <td className="text-center font-medium">{scenario.annualRatePercent}%</td>
                   <td className="text-right text-amber-400 font-semibold">
                     {formatCurrency(scenario.lumpSumRequired)}
                   </td>
                   <td className="text-right text-cyan-400">{formatCurrency(scenario.totalGrowth)}</td>
-                  <td className="text-right">{scenario.growthPercentOfTarget.toFixed(1)}%</td>
+                  <td className="text-center">{scenario.growthPercentOfTarget.toFixed(1)}%</td>
                 </tr>
               ))}
             </tbody>
