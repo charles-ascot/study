@@ -72,13 +72,17 @@ export function generatePDF(reportData) {
     theme: 'plain',
     margin: { left: margin, right: margin },
     columnStyles: {
-      0: { fontStyle: 'bold', cellWidth: 50 },
-      1: { cellWidth: contentWidth - 50 }
+      0: { fontStyle: 'bold', cellWidth: 50, halign: 'left' },
+      1: { cellWidth: contentWidth - 50, halign: 'left' }
     },
     styles: {
       fontSize: 10,
-      cellPadding: 3
-    }
+      cellPadding: 3,
+      lineColor: [230, 230, 235],
+      lineWidth: 0.1
+    },
+    tableLineColor: [230, 230, 235],
+    tableLineWidth: 0.1
   });
 
   yPos = doc.lastAutoTable.finalY + 15;
@@ -106,13 +110,17 @@ export function generatePDF(reportData) {
     theme: 'plain',
     margin: { left: margin, right: margin },
     columnStyles: {
-      0: { fontStyle: 'bold', cellWidth: 55 },
-      1: { cellWidth: contentWidth - 55 }
+      0: { fontStyle: 'bold', cellWidth: 55, halign: 'left' },
+      1: { cellWidth: contentWidth - 55, halign: 'left' }
     },
     styles: {
       fontSize: 10,
-      cellPadding: 3
-    }
+      cellPadding: 3,
+      lineColor: [230, 230, 235],
+      lineWidth: 0.1
+    },
+    tableLineColor: [230, 230, 235],
+    tableLineWidth: 0.1
   });
 
   yPos = doc.lastAutoTable.finalY + 20;
@@ -174,26 +182,39 @@ export function generatePDF(reportData) {
       startY: yPos,
       head: [['Academic Year', 'Tuition Fee', 'Living Costs', 'Total']],
       body: yearlyData,
-      theme: 'striped',
+      theme: 'grid',
       margin: { left: margin, right: margin },
       headStyles: {
         fillColor: primaryColor,
         textColor: [255, 255, 255],
         fontStyle: 'bold',
-        fontSize: 9
+        fontSize: 9,
+        halign: 'center'
       },
       bodyStyles: {
-        fontSize: 9
+        fontSize: 9,
+        halign: 'center'
       },
-      footStyles: {
-        fillColor: [230, 230, 240],
-        fontStyle: 'bold'
+      alternateRowStyles: {
+        fillColor: [248, 248, 252]
+      },
+      styles: {
+        lineColor: [220, 220, 230],
+        lineWidth: 0.2,
+        cellPadding: 4
       },
       columnStyles: {
-        0: { cellWidth: 55 },
-        1: { cellWidth: 35, halign: 'right' },
-        2: { cellWidth: 35, halign: 'right' },
-        3: { cellWidth: 35, halign: 'right' }
+        0: { cellWidth: 55, halign: 'center' },
+        1: { cellWidth: 35, halign: 'center' },
+        2: { cellWidth: 35, halign: 'center' },
+        3: { cellWidth: 35, halign: 'center' }
+      },
+      didParseCell: function(data) {
+        // Style the totals row
+        if (data.row.index === yearlyData.length - 1) {
+          data.cell.styles.fillColor = [235, 235, 245];
+          data.cell.styles.fontStyle = 'bold';
+        }
       }
     });
 
@@ -218,22 +239,32 @@ export function generatePDF(reportData) {
       startY: yPos,
       head: [['Annual Return', 'Monthly Saving', 'Total Contributions', 'Investment Growth']],
       body: savingsData,
-      theme: 'striped',
+      theme: 'grid',
       margin: { left: margin, right: margin },
       headStyles: {
         fillColor: secondaryColor,
         textColor: [255, 255, 255],
         fontStyle: 'bold',
-        fontSize: 9
+        fontSize: 9,
+        halign: 'center'
       },
       bodyStyles: {
-        fontSize: 9
+        fontSize: 9,
+        halign: 'center'
+      },
+      alternateRowStyles: {
+        fillColor: [248, 248, 252]
+      },
+      styles: {
+        lineColor: [220, 220, 230],
+        lineWidth: 0.2,
+        cellPadding: 4
       },
       columnStyles: {
         0: { cellWidth: 30, halign: 'center' },
-        1: { cellWidth: 40, halign: 'right' },
-        2: { cellWidth: 45, halign: 'right' },
-        3: { cellWidth: 45, halign: 'right' }
+        1: { cellWidth: 40, halign: 'center' },
+        2: { cellWidth: 45, halign: 'center' },
+        3: { cellWidth: 45, halign: 'center' }
       }
     });
 
@@ -258,21 +289,31 @@ export function generatePDF(reportData) {
       startY: yPos,
       head: [['Annual Return', 'Lump Sum Required', 'Projected Growth', '% of Target']],
       body: lumpSumData,
-      theme: 'striped',
+      theme: 'grid',
       margin: { left: margin, right: margin },
       headStyles: {
         fillColor: [34, 211, 153], // Green
         textColor: [255, 255, 255],
         fontStyle: 'bold',
-        fontSize: 9
+        fontSize: 9,
+        halign: 'center'
       },
       bodyStyles: {
-        fontSize: 9
+        fontSize: 9,
+        halign: 'center'
+      },
+      alternateRowStyles: {
+        fillColor: [248, 248, 252]
+      },
+      styles: {
+        lineColor: [220, 220, 230],
+        lineWidth: 0.2,
+        cellPadding: 4
       },
       columnStyles: {
         0: { cellWidth: 30, halign: 'center' },
-        1: { cellWidth: 45, halign: 'right' },
-        2: { cellWidth: 45, halign: 'right' },
+        1: { cellWidth: 45, halign: 'center' },
+        2: { cellWidth: 45, halign: 'center' },
         3: { cellWidth: 40, halign: 'center' }
       }
     });
